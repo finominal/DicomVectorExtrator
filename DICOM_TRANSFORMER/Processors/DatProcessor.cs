@@ -11,17 +11,29 @@ namespace Antidote
 {
     public class DatProcessor : IProcessor
     {
+        public FileRepository repo   = new FileRepository();
+        public int applicatorSize = 0;
+        public int angleOfRotation = -90;
+
+
         public void Process(string filename)
         {
 
-            //DICOM
+            //DAT
             var vectors = GetVectorsFromFile(filename);
+            vectors = Transform(vectors);
+            repo.SaveVectors(vectors, filename, applicatorSize);
 
-            //DISPOSE first 9 bytes
-            //split by /
-            //transform
-            //save to file
+        }
 
+        private List<Vector2> Transform(List<Vector2> data)
+        {
+            var result = new List<Vector2>();
+            foreach (var vector in data)
+            {
+                result.Add( Vectors.Rotate(vector, angleOfRotation));
+            }
+            return result;
         }
 
         private List<Vector2> GetVectorsFromFile(string filename)
@@ -59,6 +71,11 @@ namespace Antidote
                 string[] split = line.Split(" ");
                 vectors.Add(new Vector2 { X = int.Parse(split[0]), Y = int.Parse(split[1]) });
             }
+
+            //Get Plate  size
+            var size = file.ReadLine();
+            string[] splitsize = size.Split(" ");
+            applicatorSize = int.Parse(splitsize[0]);
 
             return vectors;
         }

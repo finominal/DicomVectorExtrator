@@ -11,12 +11,7 @@ namespace Antidote
 
         public void Process(string filename)
         {
-
-            //DICOM
             var vectors = GetVectorsFromFile(filename);
-
-            //DISPOSE first 9 bytes
-            //split by /
             //transform
             //save to file
 

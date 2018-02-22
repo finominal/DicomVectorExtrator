@@ -55,9 +55,6 @@ namespace Antidote
                     fileRepository.WriteLog(e);
                 }
             }
-
-
         }
-
     }
 }

@@ -13,7 +13,7 @@ namespace Antidote
     {
         public FileRepository repo   = new FileRepository();
         public int applicatorSize = 0;
-        public int angleOfRotation = -90;
+        public int angleOfRotation = ApplicationConfig.rotationAngle;
 
 
         public void Process(string filename)

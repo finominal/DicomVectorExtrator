@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Antidote.Utility;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 
@@ -9,31 +11,38 @@ namespace Antidote
     public class DicomProcessor : IProcessor
     {
 
+        private int dataLineNumber = ApplicationConfig.dicomDataLineNumber;
+        private FileRepository repo;
+
+        public DicomProcessor()
+        {
+            repo = new FileRepository();
+        }
+
         public void Process(string filename)
         {
             var vectors = GetVectorsFromFile(filename);
-            //transform
-            //save to file
+
+            repo.SaveVectors(vectors, filename);
 
         }
 
         private List<Vector2> GetVectorsFromFile(string filename)
         {
-            string line;
             var vectors = new List<Vector2>();
-            bool running = true;
 
+            string[] splitData;
 
             using (StreamReader file = new StreamReader(filename))
             {
-                while ((line = file.ReadLine()) != null && running)
-                {
-                    if (line == "124")
-                    {
-                        vectors = ExtractVectorData(file);
-                        running = false;
-                    }
-                }
+                string data = File.ReadLines(filename).ElementAt(dataLineNumber - 1);
+                data = data.Substring(7, data.Length-7);
+                splitData = data.Split(@"\");
+            }
+
+            for (int i = 0; i < splitData.Count() ; i=i+2)
+            {
+                vectors.Add( new Vector2 { X = float.Parse(splitData[i]), Y = float.Parse(splitData[i + 1]) } );
             }
 
             return vectors;

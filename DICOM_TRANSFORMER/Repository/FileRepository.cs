@@ -11,24 +11,28 @@ namespace Antidote
     public class FileRepository
     {
 
-        private readonly string saveDirectory;
+        private readonly string destinationDirectory;
+        private readonly string archiveDirectory;
+        private readonly string logDirectory;
 
         public FileRepository()
         {
-            saveDirectory = @"c:\MART\TRANSFORMED\";
+            destinationDirectory = ApplicationConfig.destinationDirectory;
+            archiveDirectory = ApplicationConfig.archiveDirectory;
+            logDirectory = ApplicationConfig.logDirectory;
         }
 
         internal void SaveVectors(List<Vector2> vectors, string filename, int applicatorSize = 0)
         {
             var destinationFileName =  GenerateDestinationName(filename, applicatorSize);
 
-            if (!Directory.Exists(saveDirectory)) Directory.CreateDirectory(saveDirectory);
+            if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
-            using (var file = new StreamWriter(saveDirectory + destinationFileName))
+            using (var file = new StreamWriter(destinationDirectory + destinationFileName))
             {
                 foreach (var vector in vectors)
                 {
-                    string line = vector.X + ", " + vector.Y;
+                    string line = Math.Round(vector.X,2) + ", " + Math.Round(vector.Y,2);
                     file.WriteLine(line);
                 }
             }
@@ -40,8 +44,24 @@ namespace Antidote
             return applicatorSize > 0 ?
              file + "_" + ApplicatorSizes.Applicators[applicatorSize] + ".csv" :
              file + ".csv";
-
-
         }
+
+        internal void Archive(string filename)
+        {
+            if (!Directory.Exists(archiveDirectory)) Directory.CreateDirectory(archiveDirectory);
+
+            File.Move(filename, archiveDirectory + Path.GetFileName(filename));
+        }
+
+        public void WriteLog(string message)
+        {
+            if (!Directory.Exists(logDirectory)) Directory.CreateDirectory(logDirectory);
+
+            var lines = new List<string>();
+            lines.Add(DateTime.Now.ToLocalTime().ToString() + " " + message);
+
+            File.AppendAllLines(logDirectory + "logs.txt", lines);
+        }
+
     }
 }

@@ -21,7 +21,6 @@ namespace Antidote.Utility
             result.X = (float)Math.Round(x * cs - y * sn);
             result.Y = (float)Math.Round(x * sn + y * cs);
 
-
             return result;
         }
 

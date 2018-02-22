@@ -67,5 +67,29 @@ namespace Antidote
             File.AppendAllLines(logDirectory + "logs.txt", lines);
         }
 
+
+        public List<String> DirSearch(string sDir)
+        {
+            List<String> files = new List<String>();
+            try
+            {
+                foreach (string f in Directory.GetFiles(sDir))
+                {
+                    files.Add(f);
+                }
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    files.AddRange(DirSearch(d));
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.ToString());
+                fileRepository.WriteLog(excpt.ToString());
+            }
+
+            return files;
+        }
+
     }
 }

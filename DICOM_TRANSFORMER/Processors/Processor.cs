@@ -16,18 +16,14 @@ namespace Antidote
         {
             fileRepository = new FileRepository();
             sourceDirectory = ApplicationConfig.sourceDirectory;
-
         }
 
         public void Run()
         {
-
-            //connect to dropbox 
-            //move to local
-            var fileEntries = DirSearch(sourceDirectory);
+            var fileEntries = fileRepository.DirSearch(sourceDirectory);
 
             if (fileEntries.Count == 0) fileRepository.WriteLog("No New Files To process.");
-            //foreach  file
+            
             foreach (var filename in fileEntries)
             {
                 fileRepository.WriteLog("Processing file " + filename);
@@ -63,27 +59,5 @@ namespace Antidote
 
         }
 
-        private List<String> DirSearch(string sDir)
-        {
-            List<String> files = new List<String>();
-            try
-            {
-                foreach (string f in Directory.GetFiles(sDir))
-                {
-                    files.Add(f);
-                }
-                foreach (string d in Directory.GetDirectories(sDir))
-                {
-                    files.AddRange(DirSearch(d));
-                }
-            }
-            catch (System.Exception excpt)
-            {
-                Console.WriteLine(excpt.ToString());
-                fileRepository.WriteLog(excpt.ToString());
-            }
-
-            return files;
-        }
     }
 }

@@ -16,6 +16,8 @@ namespace Antidote.Utility
         public static int rotationAngle { get; set; }
 
         public static int dicomDataLineNumber { get; set; }
+        public static bool dicomCloseVecotors { get; set; }
+        
 
         public static void  Populate(IConfiguration config)
         {
@@ -30,6 +32,8 @@ namespace Antidote.Utility
             rotationAngle = int.Parse(config["rotationAngle"]);
 
             dicomDataLineNumber = int.Parse(config["dicomDataLineNumber"]);
+
+            dicomCloseVecotors = bool.Parse(config["dicomCloseVecotors"]);
         }
     }
 }

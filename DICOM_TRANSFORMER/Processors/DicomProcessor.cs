@@ -35,14 +35,22 @@ namespace Antidote
 
             using (StreamReader file = new StreamReader(filename))
             {
+                //extract the data
                 string data = File.ReadLines(filename).ElementAt(dataLineNumber - 1);
                 data = data.Substring(7, data.Length-7);
                 splitData = data.Split(@"\");
             }
 
+            //Get the data into vectors
             for (int i = 0; i < splitData.Count() ; i=i+2)
             {
                 vectors.Add( new Vector2 { X = float.Parse(splitData[i]), Y = float.Parse(splitData[i + 1]) } );
+            }
+
+            //close the vector by added first as last if the current first/last are not equal
+            if (ApplicationConfig.dicomCloseVecotors &&!vectors.First().Equals(vectors.Last()))
+            {
+                vectors.Add(vectors.First());
             }
 
             return vectors;

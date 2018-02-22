@@ -1,5 +1,7 @@
 ﻿using Antidote;
 using Antidote.Utility;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Antidote
@@ -22,9 +24,9 @@ namespace Antidote
 
             //connect to dropbox 
             //move to local
-            var fileEntries = Directory.GetFiles(sourceDirectory);
-           
-            if(fileEntries.Length == 0) fileRepository.WriteLog("No New Files To process.");
+            var fileEntries = DirSearch(sourceDirectory);
+
+            if (fileEntries.Count == 0) fileRepository.WriteLog("No New Files To process.");
             //foreach  file
             foreach (var filename in fileEntries)
             {
@@ -32,24 +34,56 @@ namespace Antidote
 
                 IProcessor processor;
 
-                if (filename.Substring(filename.Length - 3, 3) == "DAT")
+                try
                 {
-                    processor = new DatProcessor();
-                    processor.Process(filename);
-                    
+
+                    if (filename.Substring(filename.Length - 3, 3) == "DAT")
+                    {
+                        processor = new DatProcessor();
+                        processor.Process(filename);
+
+                    }
+                    else if (filename.Substring(filename.Length - 3, 3) == "dcm")
+                    {
+                        processor = new DicomProcessor();
+                        processor.Process(filename);
+                    }
+
+                    fileRepository.Archive(filename);
+
+                    fileRepository.WriteLog("Completed file " + filename);
+
                 }
-                else if (filename.Substring(filename.Length - 3, 3) == "dcm")
+                catch (Exception e)
                 {
-                    processor = new DicomProcessor();
-                    processor.Process(filename);
+                    fileRepository.WriteLog(e);
                 }
-
-                fileRepository.Archive(filename);
-
-                fileRepository.WriteLog("Completed file " + filename);
             }
 
 
+        }
+
+        private List<String> DirSearch(string sDir)
+        {
+            List<String> files = new List<String>();
+            try
+            {
+                foreach (string f in Directory.GetFiles(sDir))
+                {
+                    files.Add(f);
+                }
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    files.AddRange(DirSearch(d));
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.ToString());
+                fileRepository.WriteLog(excpt.ToString());
+            }
+
+            return files;
         }
     }
 }

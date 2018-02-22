@@ -10,7 +10,7 @@ namespace Antidote
 {
     public class FileRepository
     {
-
+   
         private readonly string destinationDirectory;
         private readonly string archiveDirectory;
         private readonly string logDirectory;
@@ -26,9 +26,11 @@ namespace Antidote
         {
             var destinationFileName =  GenerateDestinationName(filename, applicatorSize);
 
-            if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
+            var subdirectory = filename.Substring(ApplicationConfig.sourceDirectory.Length, filename.Length - ApplicationConfig.sourceDirectory.Length - Path.GetFileName(filename).Length);
+            if (!Directory.Exists(destinationDirectory + subdirectory)) Directory.CreateDirectory(destinationDirectory + subdirectory);
 
-            using (var file = new StreamWriter(destinationDirectory + destinationFileName))
+
+            using (var file = new StreamWriter(destinationDirectory + subdirectory + destinationFileName))
             {
                 foreach (var vector in vectors)
                 {
@@ -48,9 +50,11 @@ namespace Antidote
 
         internal void Archive(string filename)
         {
-            if (!Directory.Exists(archiveDirectory)) Directory.CreateDirectory(archiveDirectory);
 
-            File.Move(filename, archiveDirectory + Path.GetFileName(filename));
+            var subdirectory = filename.Substring(ApplicationConfig.sourceDirectory.Length, filename.Length - ApplicationConfig.sourceDirectory.Length - Path.GetFileName(filename).Length);
+            if (!Directory.Exists(archiveDirectory + subdirectory)) Directory.CreateDirectory(archiveDirectory + subdirectory);
+
+            File.Move(filename, archiveDirectory + subdirectory +  Path.GetFileName(filename));
         }
 
         public void WriteLog(string message)

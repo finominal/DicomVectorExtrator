@@ -3,6 +3,7 @@ using Antidote.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace Antidote
 {
@@ -22,11 +23,16 @@ namespace Antidote
         {
             var fileEntries = fileRepository.DirSearch(sourceDirectory);
 
-            if (fileEntries.Count == 0) fileRepository.WriteLog("No New Files To process.");
-            
+            if (fileEntries.Count == 0)
+            {
+                fileRepository.WriteLog("No New Files To process.");
+                Console.WriteLine("No New Files To process.");
+            }
+
             foreach (var filename in fileEntries)
             {
                 fileRepository.WriteLog("Processing file " + filename);
+                Console.WriteLine("Processing file " + filename);
 
                 IProcessor processor;
 
@@ -48,13 +54,19 @@ namespace Antidote
                     fileRepository.Archive(filename);
 
                     fileRepository.WriteLog("Completed file " + filename);
+                    Console.WriteLine("Completed file " + filename);
 
                 }
                 catch (Exception e)
                 {
-                    fileRepository.WriteLog(e);
+                    fileRepository.WriteLog(e.ToString());
+                    Console.WriteLine(e.ToString());
                 }
             }
+
+
+            Console.WriteLine("Al Done.");
+            Thread.Sleep(3000);
         }
     }
 }

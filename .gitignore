@@ -1,0 +1,9 @@
+/.vs/DICOM_TRANSFORMER/v15/.suo
+/.vs/DICOM_TRANSFORMER/v15/Server/sqlite3/storage.ide
+/.vs/DICOM_TRANSFORMER/v15/Server/sqlite3/storage.ide-shm
+/.vs/DICOM_TRANSFORMER/v15/Server/sqlite3/storage.ide-wal
+/DICOM_TRANSFORMER/obj/Release/netcoreapp2.0/DICOM_TRANSFORMER.AssemblyInfo.cs
+/DICOM_TRANSFORMER/obj/Release/netcoreapp2.0/DICOM_TRANSFORMER.AssemblyInfoInputs.cache
+/DICOM_TRANSFORMER/obj/Release/netcoreapp2.0/DICOM_TRANSFORMER.csproj.CoreCompileInputs.cache
+/DICOM_TRANSFORMER/bin/*
+/DICOM_TRANSFORMER/obj/*

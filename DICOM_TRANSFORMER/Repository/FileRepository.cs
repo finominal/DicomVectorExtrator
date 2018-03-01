@@ -85,7 +85,7 @@ namespace Antidote
             catch (System.Exception excpt)
             {
                 Console.WriteLine(excpt.ToString());
-                fileRepository.WriteLog(excpt.ToString());
+                WriteLog(excpt.ToString());
             }
 
             return files;

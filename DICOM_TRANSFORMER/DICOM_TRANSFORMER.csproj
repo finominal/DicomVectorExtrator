@@ -11,12 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="LAO.DAT_" />
+    <None Remove="RP.ZZZ_Elect_Test.9e 10ap TB_.dcm_" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="1.6.5.1" />
   </ItemGroup>
 
   <ItemGroup>

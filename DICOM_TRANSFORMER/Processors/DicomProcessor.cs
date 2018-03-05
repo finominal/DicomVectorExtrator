@@ -10,8 +10,6 @@ namespace Antidote
 {
     public class DicomProcessor : IProcessor
     {
-
-        private int dataLineNumber = ApplicationConfig.dicomDataLineNumber;
         private FileRepository repo;
 
         public DicomProcessor()
@@ -31,32 +29,58 @@ namespace Antidote
         {
             var vectors = new List<Vector2>();
 
-            string[] splitData;
+            string[] splitData = new string[0];
+            var found = false;
+            string line;
+            byte[] vectorTag = GenerateHeader();
 
             using (StreamReader file = new StreamReader(filename))
             {
-                //extract the data
-                string data = File.ReadLines(filename).ElementAt(dataLineNumber - 1);
-                data = data.Substring(7, data.Length-7);
-                splitData = data.Split(@"\");
+                
+
+                //find data line
+                while ((line = file.ReadLine()) != null && !found)
+                {
+                    if (line.Length >= 7  && IsDicomVectorHeader(line, vectorTag))
+                    {
+                        line = line.Substring(7, line.Length - 7);
+                        splitData = line.Split(@"\"); vectors = ExtractVectorData(file);
+                        found = true;
+                    }
+                }
             }
 
-            //Get the data into vectors
-            for (int i = 0; i < splitData.Count() ; i=i+2)
+            if (found)
             {
-                vectors.Add( new Vector2 { X = float.Parse(splitData[i]), Y = float.Parse(splitData[i + 1]) } );
-            }
+                //Get the data into vectors
+                for (int i = 0; i < splitData.Count(); i = i + 2)
+                {
+                    vectors.Add(new Vector2 { X = float.Parse(splitData[i]), Y = float.Parse(splitData[i + 1]) });
+                }
 
-            //close the vector by added first as last if the current first/last are not equal
-            if (ApplicationConfig.dicomCloseVecotors &&!vectors.First().Equals(vectors.Last()))
-            {
-                vectors.Add(vectors.First());
+                //close the vector by added first as last if the current first/last are not equal
+                if (ApplicationConfig.dicomCloseVecotors && !vectors.First().Equals(vectors.Last()))
+                {
+                    vectors.Add(vectors.First());
+                }
             }
 
             return vectors;
         }
 
+        private  bool IsDicomVectorHeader(string line, byte[] vectorTag)
+        {
+            var headerAsCharArray = System.Text.Encoding.UTF8.GetString(vectorTag).ToCharArray();
+            var fileHeacder = line.Substring(0, 7).ToCharArray();
+            var result =  fileHeacder == headerAsCharArray;
+            return result;
+        }
 
+        private byte[] GenerateHeader()
+        {
+            byte[] dicomVectorHeader = { 0x30, 0x06, 0x01, 0xB6, 0x00, 0x00 };
+            return dicomVectorHeader;
+        }
 
         private List<Vector2> ExtractVectorData(StreamReader file)
         {

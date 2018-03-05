@@ -42,16 +42,22 @@ namespace Antidote
                     if (filename.Substring(filename.Length - 3, 3) == "DAT")
                     {
                         processor = new DatProcessor();
-                        processor.Process(filename);
 
                     }
                     else if (filename.Substring(filename.Length - 3, 3) == "dcm")
                     {
                         processor = new DicomProcessor();
-                        processor.Process(filename);
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("SKIPPING: {0} is not a processable file. ", filename);
+                         
+                        continue;
                     }
 
-                    fileRepository.Archive(filename);
+                    processor.Process(filename);
+                    fileRepository.Complete(filename);
 
                     fileRepository.WriteLog("Completed file " + filename);
                     Console.WriteLine("Completed file " + filename);
@@ -65,8 +71,8 @@ namespace Antidote
             }
 
 
-            Console.WriteLine("Al Done.");
-            Thread.Sleep(3000);
+            Console.WriteLine("All Done.");
+            Console.ReadKey();
         }
     }
 }

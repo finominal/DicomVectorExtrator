@@ -14,7 +14,6 @@ namespace Antidote.Utility
         public static string archiveDirectory { get; set; }
         public static string logDirectory { get; set; }
         public static int rotationAngle { get; set; }
-        public static int dicomDataLineNumber { get; set; }
         public static bool dicomCloseVecotors { get; set; }
         
 
@@ -29,8 +28,6 @@ namespace Antidote.Utility
             logDirectory = config["logDirectory"];
 
             rotationAngle = int.Parse(config["rotationAngle"]);
-
-            dicomDataLineNumber = int.Parse(config["dicomDataLineNumber"]);
 
             dicomCloseVecotors = bool.Parse(config["dicomCloseVecotors"]);
         }

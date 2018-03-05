@@ -29,6 +29,12 @@ namespace Antidote
             var subdirectory = filename.Substring(ApplicationConfig.sourceDirectory.Length, filename.Length - ApplicationConfig.sourceDirectory.Length - Path.GetFileName(filename).Length);
             if (!Directory.Exists(destinationDirectory + subdirectory)) Directory.CreateDirectory(destinationDirectory + subdirectory);
 
+            //purge
+            if (File.Exists(destinationDirectory + subdirectory + destinationFileName))
+            {
+                File.Delete(destinationDirectory + subdirectory + destinationFileName);
+            }
+
 
             using (var file = new StreamWriter(destinationDirectory + subdirectory + destinationFileName))
             {
@@ -55,6 +61,13 @@ namespace Antidote
             if (!Directory.Exists(archiveDirectory + subdirectory)) Directory.CreateDirectory(archiveDirectory + subdirectory);
 
             File.Move(filename, archiveDirectory + subdirectory +  Path.GetFileName(filename));
+        }
+
+        internal void Complete(string filename)
+        {
+            if(File.Exists( filename + "_")) File.Delete(filename + "_");
+            File.Move(filename, filename + "_");
+
         }
 
         public void WriteLog(string message)

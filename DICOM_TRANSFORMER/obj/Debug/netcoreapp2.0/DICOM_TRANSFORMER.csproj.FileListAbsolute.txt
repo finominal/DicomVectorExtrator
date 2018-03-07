@@ -9,3 +9,4 @@ c:\users\finian.mccarthy\documents\visual studio 2017\Projects\DICOM_TRANSFORMER
 C:\Users\finian.mccarthy\Documents\Visual Studio 2017\Projects\DICOM_TRANSFORMER\DICOM_TRANSFORMER\bin\Debug\netcoreapp2.0\Antidote.Dicom.Transformer.pdb
 C:\Users\finian.mccarthy\Documents\Visual Studio 2017\Projects\DICOM_TRANSFORMER\DICOM_TRANSFORMER\obj\Debug\netcoreapp2.0\Antidote.Dicom.Transformer.dll
 C:\Users\finian.mccarthy\Documents\Visual Studio 2017\Projects\DICOM_TRANSFORMER\DICOM_TRANSFORMER\obj\Debug\netcoreapp2.0\Antidote.Dicom.Transformer.pdb
+C:\Users\finian.mccarthy\Documents\Visual Studio 2017\Projects\DICOM_TRANSFORMER\DICOM_TRANSFORMER\bin\Debug\netcoreapp2.0\appsettings.json

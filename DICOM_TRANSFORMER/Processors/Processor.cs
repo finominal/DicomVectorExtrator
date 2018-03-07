@@ -71,8 +71,8 @@ namespace Antidote
             }
 
 
-            Console.WriteLine("All Done.");
-            Console.ReadKey();
+            Console.WriteLine("Processing Finished!");
+            Thread.Sleep(3000);
         }
     }
 }

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "dfee0be3c5de34c0893718d5a71496afce0e3697"
+    "signature": "1fa0e7e13b0183ae63b4ac576f91d198be4e9dc6"
   },
   "compilationOptions": {},
   "targets": {
@@ -13,7 +13,8 @@
           "Microsoft.Extensions.DependencyInjection": "2.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
           "Microsoft.Extensions.Logging": "2.0.0",
-          "Microsoft.Extensions.Logging.Console": "2.0.0"
+          "Microsoft.Extensions.Logging.Console": "2.0.0",
+          "Vintasoft.Imaging.Dicom": "1.6.5.1"
         },
         "runtime": {
           "Antidote.Dicom.Transformer.dll": {}
@@ -558,6 +559,27 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
+      },
+      "Vintasoft.Imaging/8.6.5.1": {
+        "dependencies": {
+          "Vintasoft.Shared": "1.0.11.1"
+        },
+        "runtime": {
+          "lib/net40/Vintasoft.Imaging.dll": {}
+        }
+      },
+      "Vintasoft.Imaging.Dicom/1.6.5.1": {
+        "dependencies": {
+          "Vintasoft.Imaging": "8.6.5.1"
+        },
+        "runtime": {
+          "lib/net40/Vintasoft.Imaging.Dicom.dll": {}
+        }
+      },
+      "Vintasoft.Shared/1.0.11.1": {
+        "runtime": {
+          "lib/net40/Vintasoft.Shared.dll": {}
+        }
       }
     }
   },
@@ -979,6 +1001,27 @@
       "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "Vintasoft.Imaging/8.6.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6zLA2kQOpqcsxW93AGMjSAzogQM3BtP7qLGhXbexfukL4kFEe2+tTDE+0wZVgcu2gfhmtFOAUzlutU6o0Ivu9g==",
+      "path": "vintasoft.imaging/8.6.5.1",
+      "hashPath": "vintasoft.imaging.8.6.5.1.nupkg.sha512"
+    },
+    "Vintasoft.Imaging.Dicom/1.6.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Kl//bC2tZVGE7S7qymyJMr9r40fEIXrc2kwi9QF/jjajeC3J33Rjgf7lwd+zLBkv7TClzVWOSX5mWNYSr6hOPg==",
+      "path": "vintasoft.imaging.dicom/1.6.5.1",
+      "hashPath": "vintasoft.imaging.dicom.1.6.5.1.nupkg.sha512"
+    },
+    "Vintasoft.Shared/1.0.11.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+L6MJZ+Qs/oRd89mXAATTk4bB/6eQrsF8vZJvu4LlnjL1MovD43eCzPTgishpnU05M7kVmDZdlkeAucETWgVCQ==",
+      "path": "vintasoft.shared/1.0.11.1",
+      "hashPath": "vintasoft.shared.1.0.11.1.nupkg.sha512"
     }
   }
 }

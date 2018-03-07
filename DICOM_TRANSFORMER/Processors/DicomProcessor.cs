@@ -44,7 +44,7 @@ namespace Antidote
                     if (line.Length >= 7  && IsDicomVectorHeader(line, vectorTag))
                     {
                         line = line.Substring(7, line.Length - 7);
-                        splitData = line.Split(@"\"); vectors = ExtractVectorData(file);
+                        splitData = line.Split(@"\");
                         found = true;
                     }
                 }
@@ -53,10 +53,7 @@ namespace Antidote
             if (found)
             {
                 //Get the data into vectors
-                for (int i = 0; i < splitData.Count(); i = i + 2)
-                {
-                    vectors.Add(new Vector2 { X = float.Parse(splitData[i]), Y = float.Parse(splitData[i + 1]) });
-                }
+                vectors = ExtractVectorData(splitData);
 
                 //close the vector by added first as last if the current first/last are not equal
                 if (ApplicationConfig.dicomCloseVecotors && !vectors.First().Equals(vectors.Last()))
@@ -68,30 +65,41 @@ namespace Antidote
             return vectors;
         }
 
-        private  bool IsDicomVectorHeader(string line, byte[] vectorTag)
+        private  bool IsDicomVectorHeader(string line, byte[] vectorheader)
         {
-            var headerAsCharArray = System.Text.Encoding.UTF8.GetString(vectorTag).ToCharArray();
+            var headerToMatch = System.Text.Encoding.UTF8.GetString(vectorheader).ToCharArray();
             var fileHeacder = line.Substring(0, 7).ToCharArray();
-            var result =  fileHeacder == headerAsCharArray;
+            var result = Compare(fileHeacder, headerToMatch);
             return result;
+        }
+
+  
+        private bool Compare(char[] fileHeader, char[] headerToMatch)
+        {
+            int idx = 0;
+            foreach(var item in fileHeader)
+            {
+                if (item != headerToMatch[idx])
+                { return false; }
+                idx++;
+            }
+
+            return true;
         }
 
         private byte[] GenerateHeader()
         {
-            byte[] dicomVectorHeader = { 0x30, 0x06, 0x01, 0xB6, 0x00, 0x00 };
+            byte[] dicomVectorHeader = { 0x30, 0x06, 0x01, 0xB6,0x10, 0x00, 0x00 };
             return dicomVectorHeader;
         }
 
-        private List<Vector2> ExtractVectorData(StreamReader file)
+        private List<Vector2> ExtractVectorData(string[] values)
         {
-            string line;
-
             List<Vector2> vectors = new List<Vector2>();
-
-            while ((line = file.ReadLine()) != "17") //find 17 which marks the end of the data
+           
+            for(int idx = 0; idx<values.Length; idx+=2)
             {
-                string[] split = line.Split(" ");
-                vectors.Add(new Vector2 { X = int.Parse(split[0]), Y = int.Parse(split[1]) });
+                vectors.Add(new Vector2 { X = (float)Math.Round(float.Parse(values[idx]),2 ) , Y = (float)Math.Round(float.Parse(values[idx+1]),2) });
             }
 
             return vectors;

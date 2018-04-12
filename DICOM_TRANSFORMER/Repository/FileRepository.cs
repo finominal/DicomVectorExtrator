@@ -54,14 +54,14 @@ namespace Antidote
              file + ".csv";
         }
 
-        internal void Archive(string filename)
-        {
+        //internal void Archive(string filename)
+        //{
 
-            var subdirectory = filename.Substring(ApplicationConfig.sourceDirectory.Length, filename.Length - ApplicationConfig.sourceDirectory.Length - Path.GetFileName(filename).Length);
-            if (!Directory.Exists(archiveDirectory + subdirectory)) Directory.CreateDirectory(archiveDirectory + subdirectory);
+        //    var subdirectory = filename.Substring(ApplicationConfig.sourceDirectory.Length, filename.Length - ApplicationConfig.sourceDirectory.Length - Path.GetFileName(filename).Length);
+        //    if (!Directory.Exists(archiveDirectory + subdirectory)) Directory.CreateDirectory(archiveDirectory + subdirectory);
 
-            File.Move(filename, archiveDirectory + subdirectory +  Path.GetFileName(filename));
-        }
+        //    File.Move(filename, archiveDirectory + subdirectory +  Path.GetFileName(filename));
+        //}
 
         internal void Complete(string filename)
         {

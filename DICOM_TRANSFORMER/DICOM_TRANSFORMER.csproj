@@ -6,8 +6,8 @@
     <Authors>Fin Mccarthy</Authors>
     <Company>ANTIDOTE BIOMEDICAL</Company>
     <RootNamespace>Antidote</RootNamespace>
-    <AssemblyName>Antidote.Dicom.Transformer</AssemblyName>
-    <StartupObject></StartupObject>
+    <AssemblyName>Antidote.Dicom.Vector.Extractor</AssemblyName>
+    <StartupObject>Antidote.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

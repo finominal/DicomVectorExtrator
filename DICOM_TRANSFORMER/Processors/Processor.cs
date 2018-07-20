@@ -1,4 +1,5 @@
 ﻿using Antidote;
+using Antidote.Processors.Factory;
 using Antidote.Utility;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,7 @@ namespace Antidote
 
             foreach (var filename in fileEntries)
             {
-                fileRepository.WriteLog("Processing file " + filename);
-                Console.WriteLine("Processing file " + filename);
-
+ 
                 IProcessor processor;
 
                 try
@@ -46,15 +45,16 @@ namespace Antidote
                     }
                     else if (filename.Substring(filename.Length - 3, 3) == "dcm")
                     {
-                        processor = new DicomProcessor();
-
+                        var factory = new DICOMProcessorFactory();
+                        processor = factory.Get(filename);
                     }
                     else
                     {
-                        Console.WriteLine("SKIPPING: {0} is not a processable file. ", filename);
-                         
                         continue;
                     }
+
+                    fileRepository.WriteLog("Processing file " + filename);
+                    Console.WriteLine("Processing file " + filename);
 
                     processor.Process(filename);
                     fileRepository.Complete(filename);

@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Antidote
 {
-    public class DicomProcessor : IProcessor
+    public class DicomProcessorA : IProcessor
     {
         private FileRepository repo;
 
-        public DicomProcessor()
+        public DicomProcessorA()
         {
             repo = new FileRepository();
         }
@@ -105,5 +105,9 @@ namespace Antidote
             return vectors;
         }
 
+        public void IsValid(FileStream file)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,0 +1,8 @@
+4/05/2018 5:10:50 PM Processing file C:\ANTIDOTE\SOURCE\12345\RP.ZZZ_Elect_Test.9e 10ap TB_.csv
+4/05/2018 5:10:50 PM Processing file C:\ANTIDOTE\SOURCE\12345\RP.ZZZ_Elect_Test.9e 10ap TB_.dcm_
+4/05/2018 6:14:05 PM Processing file C:\ANTIDOTE\SOURCE\12345\RP.ZZZ_Elect_Test.9e 10ap TB_.csv
+4/05/2018 6:14:05 PM Processing file C:\ANTIDOTE\SOURCE\12345\RP.ZZZ_Elect_Test.9e 10ap TB_.dcm_
+4/05/2018 6:15:28 PM Processing file C:\ANTIDOTE\SOURCE\12345\RP.ZZZ_Elect_Test.9e 10ap TB_.csv
+4/05/2018 6:15:28 PM Processing file C:\ANTIDOTE\SOURCE\12345\RP.ZZZ_Elect_Test.9e 10ap TB_.dcm_
+4/05/2018 6:26:04 PM Processing file C:\ANTIDOTE\SOURCE\22345\SCUH02May18.dcm
+4/05/2018 6:30:13 PM Processing file C:\ANTIDOTE\SOURCE\22345\SCUH02May18.dcm
